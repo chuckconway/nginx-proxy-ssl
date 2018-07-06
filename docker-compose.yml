@@ -11,10 +11,10 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ${NGINX_FILES_PATH}/conf.d:/etc/nginx/conf.d
-      - ${NGINX_FILES_PATH}/vhost.d:/etc/nginx/vhost.d
-      - ${NGINX_FILES_PATH}/html:/usr/share/nginx/html
-      - ${NGINX_FILES_PATH}/certs:/etc/nginx/certs:ro
+      - /local/nginx/data/conf.d:/etc/nginx/conf.d
+      - /local/nginx/data/vhost.d:/etc/nginx/vhost.d
+      - /local/nginx/data/html:/usr/share/nginx/html
+      - /local/nginx/data/certs:/etc/nginx/certs:ro
       - ./my_proxy.conf:/etc/nginx/conf.d/my_proxy.conf
 
    nginx-gen:
@@ -23,10 +23,10 @@ services:
     container_name: nginx-gen
     restart: unless-stopped
     volumes:
-      - ${NGINX_FILES_PATH}/conf.d:/etc/nginx/conf.d
-      - ${NGINX_FILES_PATH}/vhost.d:/etc/nginx/vhost.d
-      - ${NGINX_FILES_PATH}/html:/usr/share/nginx/html
-      - ${NGINX_FILES_PATH}/certs:/etc/nginx/certs:ro
+      - /local/nginx/data/conf.d:/etc/nginx/conf.d
+      - /local/nginx/data/vhost.d:/etc/nginx/vhost.d
+      - /local/nginx/data/html:/usr/share/nginx/html
+      - /local/nginx/data/certs:/etc/nginx/certs:ro
       - /var/run/docker.sock:/tmp/docker.sock:ro
       - ./nginx.tmpl:/etc/docker-gen/templates/nginx.tmpl:ro
 
@@ -35,10 +35,10 @@ services:
     container_name: nginx-letsencrypt
     restart: unless-stopped
     volumes:
-      - ${NGINX_FILES_PATH}/conf.d:/etc/nginx/conf.d
-      - ${NGINX_FILES_PATH}/vhost.d:/etc/nginx/vhost.d
-      - ${NGINX_FILES_PATH}/html:/usr/share/nginx/html
-      - ${NGINX_FILES_PATH}/certs:/etc/nginx/certs:rw
+      - /local/nginx/data/conf.d:/etc/nginx/conf.d
+      - /local/nginx/data/vhost.d:/etc/nginx/vhost.d
+      - /local/nginx/data/html:/usr/share/nginx/html
+      - /local/nginx/data/certs:/etc/nginx/certs:rw
       - /var/run/docker.sock:/var/run/docker.sock:ro
     environment:
       NGINX_DOCKER_GEN_CONTAINER: "nginx-gen"
